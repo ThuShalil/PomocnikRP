@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomocnik RP | Bohater Gracza</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/static/css/master.css" th:href="@{/css/master.css}">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav navbar-right">
+	  <div class="conainer">
+	  <div class="row">
+	  <div class="col-sm-1">    
+	            <img th:src="${avatarurl}" src="userAvatar.png" alt="Placeholder" class="rounded-circle avatar">
+				</div>
+      <div class="col-sm-1">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<!-- nick użytkownika discord -->
+			  <span class="user" th:text="${name}">discord_nickName</span>
+							<!-- ------------------------ -->
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                    <h6 class="dropdown-header">User Control Panel</h6>
+                    <a class="dropdown-item" href="index.html">Konto</a>
+                    <a class="dropdown-item" href="../../logout.php">Wyloguj</a>
+                    <div class="dropdown-divider"></div>
+										<!-- imię postaci/BG -->
+                    <h6 class="dropdown-header" th:text="${hero.getName()}">hero_name</h6>
+										<!-- --------------- -->
+                    <a class="dropdown-item" href="heroC.html">Karta postaci</a>
+                    <a class="dropdown-item" href="../heroBlank.htm">Szybka karta</a>
+                    <a class="dropdown-item" href="bot.html">Pomocnik RP</a>
+              </div>
+            </li>
+	  </div>
+	  </div>
+	  </div>
+      </ul>
+    </div>
+  </nav>
+    
+<div class="container">
+<div class="row justify-content-md-center">
+<div class="col">
+<div class="card text-center text-white bg-secondary">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="hero-tab" data-toggle="tab" href="#hero" role="tab" aria-controls="hero" aria-selected="true">Bohater</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="stat-tab" data-toggle="tab" href="#stat" role="tab" aria-controls="stat" aria-selected="false">Cechy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="skill-tab" data-toggle="tab" href="#skill" role="tab" aria-controls="skill" aria-selected="false">Umiejetności</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="ability-tab" data-toggle="tab" href="#ability" role="tab" aria-controls="ability" aria-selected="false">Zdolności</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="blank-tab" data-toggle="tab" href="#" role="tab" aria-controls="blank" aria-selected="false">|</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="eq-tab" data-toggle="tab" href="#eq" role="tab" aria-controls="eq" aria-selected="false">Ekwipunek</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="weaponArmor-tab" data-toggle="tab" href="#weaponArmor" role="tab" aria-controls="weaponArmor" aria-selected="false">Broń & Pancerz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="spellBook-tab" data-toggle="tab" href="#spellBook" role="tab" aria-controls="spellBook" aria-selected="false">Księga Czarów</a>
+      </li>
+    </ul>
+  </div>
+<div class="card-body">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="hero" role="tabpanel" aria-labelledby="hero-tab">
+		  <h4>Bohater</h4>
+<!-- Tabela Bohater -->
+    <table>
+    <tbody>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Imię:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="4" th:text="${hero.getName()}"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Rasa:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="4" th:text="${hero.getRace()}"></td>
+    </tr>
+    <tr>
+    		<td class="hero_blank" colspan="5"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial_black color-white center bg-color-dgray" colspan="5">Profesje</td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Wstepna:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="2" th:text="${hero.getProfession()}"></td>
+    		<td class="font-size-14 font-arial font-blod right width-17">Obecna:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" th:text="${hero.getLastProfession()}"></td>
+    </tr>
+    <tr>
+    		<td class="hero_blank" colspan="5"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial_black color-white center bg-color-dgray" colspan="5">Wygląd</td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Wiek:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="2" th:text="${hero.getAge()}"></td>
+    		<td class="font-size-14 font-arial font-blod right width-17">Kolor oczu:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" th:text="${hero.getEyeColor()}"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Płeć:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="2" th:text="${hero.getSex()}"></td>
+    		<td class="font-size-14 font-arial font-blod right width-17">Kolor włosów:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" th:text="${hero.getHairColor()}"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Waga:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="2" th:text="${hero.getHeroWeigh()}"></td>
+    		<td class="font-size-14 font-arial font-blod right width-17">Znak gwiezdny:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" th:text="${hero.getStarSign()}"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20">Wzrost:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="2" th:text="${hero.getHeight()}"></td>
+    		<td class="font-size-14 font-arial font-blod right width-17">Rodzeństwo:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" th:text="${hero.getSiblings()}"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20" colspan="2">Miejsce urodzenia:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="3" th:text="${hero.getPlaceOfBirth()}"></td>
+    </tr>
+    <tr>
+    		<td class="font-size-14 font-arial font-blod left width-20" colspan="2">Znaki szczególne:</td>
+    		<td class="font-size-14 font-arial center box-shadow-inset" colspan="3" th:text="${hero.getSpecialCharacters()}"></td>
+    </tr>
+    </tbody>
+    </table>
+<!-- Tabela Bohater Koniec -->
+      <hr>
+		  <h4>Historia</h4>
+      <p class="text-justify" th:text="${hero.getDescription()}">Brak histori Bohatera Gracza ...</p>
+		
+		</div>
+		<div class="tab-pane fade" id="stat" role="tabpanel" aria-labelledby="stat-tab">
+<!-- Tabela Cechy -->
+    <table>
+		<tbody>
+		<tr>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray">Cechy gł&oacute;wne</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">WW</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">US</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">K</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Odp</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Zr</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Int</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">SW</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Ogd</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20">&nbsp;Początkowa</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getWW().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getUS().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getK().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getODP().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getZR().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getINT().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getSW().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getOGD().getBasicValue()}">00</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20">&nbsp;Schemat rozwoju</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20">&nbsp;Bonus ze zdolności</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20 color-mark">&nbsp;Aktualna</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+		</tr>
+		<tr>
+				<td class="stat_blank" colspan="9">&nbsp;</td>
+		</tr>
+		<tr>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray">Cechy drugorzędne</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">A</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Żyw</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">S</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Wt</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Sz</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">Mag</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">PO</td>
+				<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10">PP</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20">&nbsp;Początkowa</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getA().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getZYW().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getS().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getWT().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getSZ().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getMAG().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getPO().getBasicValue()}">00</td>
+				<td class="font-size-13 center box-shadow-inset" th:text="${hero.getPP().getBasicValue()}">00</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20">&nbsp;Schemat rozwoju</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20">&nbsp;Bonus ze zdolnosci</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+				<td class="font-size-13 center box-shadow-inset">00</td>
+		</tr>
+		<tr>
+				<td class="font-size-12 font-arial_black left width-20 color-mark">&nbsp;Aktualna</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+				<td class="font-size-13 center box-shadow-inset color-mark">00</td>
+		</tr>
+		</tbody>
+		</table>
+<!-- Tabela Cechy Koniec -->
+
+	  </div>
+      <div class="tab-pane fade" id="skill" role="tabpanel" aria-labelledby="skill-tab">
+	     <div class="container-fluid">
+		 <div class="row">
+		 <div class="col-sm-6">
+
+<!-- Tabela Umiejętności -->
+	    <table>
+	    <tbody>
+	    <tr>
+	    		 <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-50">Podstawowe</td>
+	    		 <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-20 color-mark">W</td>
+	    		 <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-30">CP</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Charakteryzacja</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Ogd</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Dowodzenie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Ogd</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Hazard</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Int</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Jeździectwo</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Zr</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Mocna głowa</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Odp</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Opieka nad zwierzętami</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Int</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Plotkowanie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Ogd</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Pływanie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">K</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Powożenie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">K</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Przekonywanie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Ogd</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Przeszukiwanie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Int</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Skradanie się</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Zr</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Spostrzegawczość</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Int</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Sztuka przetrwania</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Int</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Targowanie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Ogd</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Ukrywanie się</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Zr</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Wioślarstwo</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">K</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Wspinaczka</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">K</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Wycena</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">Int</td>
+	    </tr>
+	    <tr>
+	    		 <td class="font-size-14 font-arial left bb-1solid">&nbsp;Zastraszanie</td>
+	    		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+	    		 <td class="font-size-14 font-arial center bb-1solid">K</td>
+	    </tr>
+	    </tbody>
+	    </table> 
+<!-- Tabela Umiejętności Koniec -->
+
+		 </div>
+		 <div class="col-sm-6">
+
+<!-- Tabela Umiejętności Zaawansowane -->
+	    <table>
+	    <tbody>
+	    <tr>
+	  		 <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-50">Zaawansowane</td>
+	  		 <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-20 color-mark">W</td>
+             <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-30">CP</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Znajomość języka (staroświatowy)</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    <tr>
+	  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;nazwa</td>
+	  		 <td class="font-size-14 font-arial center box-shadow-inset color-mark">00</td>
+			 <td class="font-size-14 font-arial center box-shadow-inset">---</td>
+	    </tr>
+	    </tbody>
+	    </table>
+<!-- Tabela Umiejętności Zaawansowane Koniec -->
+
+		 </div>
+		 </div>
+		 </div>
+	  </div>
+      <div class="tab-pane fade" id="ability" role="tabpanel" aria-labelledby="ability-tab">
+
+<!-- Tabela zdolnosci -->
+      <table>
+      <tbody>
+      <tr>
+      		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-50 color-mark">Zdolność</td>
+      		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-50">Opis</td>
+      </tr>
+      <tr th:each="skill : ${hero.getSkills()}">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark" th:text="${skill.getName()}">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset" th:text="${skill.getDescription()}">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      <tr th:remove="all">
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">&nbsp;Dotyk magii</td>
+      		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;+20 do WW przy zaklęciach dotykowych</td>
+      </tr>
+      </tbody>
+      </table>   
+<!-- Tabela zdolnosci Koniec-->
+
+	  </div>
+      <div class="tab-pane fade" id="eq" role="tabpanel" aria-labelledby="eq-tab">
+
+<!-- Tabela Ekwipunek -->
+      <table>
+		  <tbody>
+		  <tr>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-50 color-mark">Nazwa</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-35">Opis</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-15">Ilość</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">Zestaw narzędzi (kowal run)</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">Potrzebne przy wykuwaniu run</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">1 zestaw</td>
+		  </tr>
+		  </tbody>
+		  </table> 
+<!-- Tabela Ekwipunek Koniec-->
+
+	  </div>
+      <div class="tab-pane fade" id="weaponArmor" role="tabpanel" aria-labelledby="weaponArmor-tab">
+
+<!-- Tabela Broń -->
+      <table>
+		  <tbody>
+		  <tr>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-35" colspan="6">Broń</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-35 color-mark">Nazwa</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-5">Obc</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-20">Kategoria</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-5 color-mark">Siła</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-5">Zasięg</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-30">Przeładowanie</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">elfi długi łuk</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">kategoria_broń</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center color-mark">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">--/--</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">akcja_natychmiastowa</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">elfi długi łuk</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">kategoria_broń</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center color-mark">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">--/--</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">akcja_natychmiastowa</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">elfi długi łuk</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">kategoria_broń</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center color-mark">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">--/--</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">akcja_natychmiastowa</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">elfi długi łuk</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">kategoria_broń</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center color-mark">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">--/--</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">akcja_natychmiastowa</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial box-shadow-inset color-mark">elfi długi łuk</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">kategoria_broń</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center color-mark">000</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset center">--/--</td>
+		  		<td class="font-size-14 font-arial box-shadow-inset">akcja_natychmiastowa</td>
+		  </tr>
+		  </tbody>
+		  </table>
+<!-- Tabela Broń Koniec -->
+		</br>
+	</br>
+<!-- Tabela Pancerz -->
+      <table>
+      <tbody>
+					<tr>
+							<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-35" colspan="4">Pancerz</td>
+					</tr>
+      <tr>
+      		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-50 color-mark">Nazwa</td>
+          <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-5">Obc</td>
+          <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-35">Lokacje ciała</td>
+          <td class="font-size-14 font-arial_black color-white center bg-color-dgray width-10 color-mark">PZ</td>
+      </tr>
+      <tr>
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">Pełny p. płytowy</td>
+          <td class="font-size-14 font-arial box-shadow-inset center">000</td>
+          <td class="font-size-14 font-arial box-shadow-inset">Korpus, ręce, nogi</td>
+          <td class="font-size-14 font-arial box-shadow-inset center color-mark">00</td>
+      </tr>
+      <tr>
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">Pełny p. płytowy</td>
+          <td class="font-size-14 font-arial box-shadow-inset center">000</td>
+          <td class="font-size-14 font-arial box-shadow-inset">Korpus, ręce, nogi</td>
+          <td class="font-size-14 font-arial box-shadow-inset center color-mark">00</td>
+      </tr>
+      <tr>
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">Pełny p. płytowy</td>
+          <td class="font-size-14 font-arial box-shadow-inset center">000</td>
+          <td class="font-size-14 font-arial box-shadow-inset">Korpus, ręce, nogi</td>
+          <td class="font-size-14 font-arial box-shadow-inset center color-mark">00</td>
+      </tr>
+      <tr>
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">Pełny p. płytowy</td>
+          <td class="font-size-14 font-arial box-shadow-inset center">000</td>
+          <td class="font-size-14 font-arial box-shadow-inset">Korpus, ręce, nogi</td>
+          <td class="font-size-14 font-arial box-shadow-inset center color-mark">00</td>
+      </tr>
+      <tr>
+      		<td class="font-size-14 font-arial box-shadow-inset color-mark">Pełny p. płytowy</td>
+          <td class="font-size-14 font-arial box-shadow-inset center">000</td>
+          <td class="font-size-14 font-arial box-shadow-inset">Korpus, ręce, nogi</td>
+          <td class="font-size-14 font-arial box-shadow-inset center color-mark">00</td>
+      </tr>
+      </tbody>
+      </table>
+<!-- Tabela Pancerz Koniec -->
+
+	  </div>
+      <div class="tab-pane fade" id="spellBook" role="tabpanel" aria-labelledby="spellBook-tab">
+			 
+		  <!-- Tabela Księga Czarów -->
+      <table>
+		  <tbody>
+		  <tr>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-15">Magia (rodzaj)</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-15">Czar</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-5 color-mark">Moc</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-20">Składniki</td>
+		  		<td class="font-size-14 font-arial_black color-white center bg-color-dgray width-35">Opis</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		 <td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  <tr>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magia prosta (gusła)</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Kula ognia</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset color-mark">&nbsp;12</td>
+		  		<td class="font-size-14 font-arial center box-shadow-inset">&nbsp;Siarka 0.5 kg</td>
+		  		<td class="font-size-14 font-arial left box-shadow-inset">&nbsp;Magiczny pocisk, bla bla bla .............. bla...</td>
+		  </tr>
+		  </tbody>
+		  </table>                 
+<!-- Tabela Księga Czarów Koniec -->		
+
+		
+		
+    </div>   
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
